@@ -1,10 +1,11 @@
-package com.examples.spring;
+package com.examples.spring.config;
 
+import com.examples.spring.boot.Car;
+import com.examples.spring.boot.Engine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-//@ComponentScan
 @Configuration
 public class AppConfig {
 
