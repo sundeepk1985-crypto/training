@@ -75,37 +75,65 @@ public class EmployeeService {
 
 	// Get Employee count greater than given age
 	public long getEmployeeCountAgeGreaterThan(Predicate<Employee> condition) {
-		return 0;
+		return	employees.values()
+				.stream()
+				.filter(condition)
+				.count();
 	}
 
 	// Get list of Employee IDs whose age is greater than given age
 	public List<Integer> getEmployeeIdsAgeGreaterThan(int age) {
-		return null;
+		return employees.values()
+				.stream()
+				.filter(emp -> emp.getAge() > age)
+				.map(emp -> emp.getEmpId())
+				.collect(Collectors.toList());
 	}
 
 	// Get Department wise Employee count
 	public Map<String, Long> getEmployeeCountByDepartment() {
-		return null;
+		return employees.values()
+				.stream()
+				.collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()));
 	}
 
 	// Get Department wise Employee count ordered by Department name
 	public Map<String, Long> getEmployeeCountByDepartmentOdered() {
-		return null;
+		return employees.values()
+				.stream()
+				.sorted(Comparator.comparing(Employee::getDepartment))
+				.collect(Collectors.groupingBy(Employee::getDepartment, LinkedHashMap::new, Collectors.counting()));
 	}
 
 	// Get Department wise average Employee age ordered by Department name
 	public Map<String, Double> getAvgEmployeeAgeByDept() {
-		return null;
+		return employees.values()
+				.stream()
+//				.sorted(Comparator.comparing(Employee::getDepartment))
+				.collect(Collectors.groupingBy(Employee::getDepartment, TreeMap::new, Collectors.averagingInt(Employee::getAge)));
 	}
 
 	// Get Departments have more than given Employee count
 	public List<String> getDepartmentsHaveEmployeesMoreThan(int criteria) {
-		return null;
+		List<String> deptList = new ArrayList<>();
+		return employees.values()
+				.stream()
+				.sorted(Comparator.comparing(Employee::getDepartment))
+				.collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()))
+//				 .forEach(System.out::println)
+//				 return deptList;
+
+				.entrySet().stream() // Creating one more stream to filter the output
+				.filter(entry -> entry.getValue() > criteria).map(Map.Entry::getKey).collect(Collectors.toList());
 	}
 
 	// Get Employee names starting with given string
 	public List<String> getEmployeeNamesStartsWith(String prefix) {
-		return null;
+		return employees.values()
+				.stream()
+				.filter(emp -> emp.getName().startsWith(prefix))
+				.map(emp -> emp.getName())
+				.collect(Collectors.toList());
 	}
 
 	public synchronized void bulkImport() {
