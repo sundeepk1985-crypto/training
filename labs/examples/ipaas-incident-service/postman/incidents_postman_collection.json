@@ -1,0 +1,84 @@
+{
+	"variables": [],
+	"info": {
+		"name": "REST Labs - Incidents",
+		"_postman_id": "eca3813f-450c-9d8d-6c3e-3bb0ca0f0c29",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Incident",
+			"request": {
+				"url": "http://localhost:8080/incidents",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"submitter\":\"Sumith\",\n\t\"description\":\"Outlook not working\",\n\t\"priority\":\"HIGH\",\n\t\"status\":\"Open\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Incidents",
+			"request": {
+				"url": "http://localhost:8080/incidents",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Incidents",
+			"request": {
+				"url": "localhost:8080/incidents/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"submitter\": \"Mithil\",\n    \"description\": \"Network down\",\n    \"priority\": \"MEDIUM\",\n    \"status\": \"Closed\",\n    \"creationTime\": \"2020-02-27T11:36:17.106\",\n    \"resolutionTime\": \"2020-02-27T11:37:00\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Incident",
+			"request": {
+				"url": "http://localhost:8080/incidents/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Incident",
+			"request": {
+				"url": "http://localhost:8080/incidents/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
