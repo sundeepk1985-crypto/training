@@ -28,6 +28,7 @@ public class IncidentService {
         incident.setCreationTime(LocalDateTime.now());
         incidents.put(incidentId, incident);
         System.out.println("Incident created " + incident);
+
         return incident;
     }
 

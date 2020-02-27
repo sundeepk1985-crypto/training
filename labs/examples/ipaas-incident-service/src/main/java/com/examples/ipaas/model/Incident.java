@@ -1,10 +1,14 @@
 package com.examples.ipaas.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
 
 public class Incident {
     private int id;
+    @NotEmpty(message = "Submitter can't be empty")
     private String submitter;
+    @NotEmpty(message = "Description can't be empty")
     private String description;
     private String priority;
     private String status;
