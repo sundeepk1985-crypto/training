@@ -7,6 +7,7 @@ public class Incident {
     private String submitter;
     private String description;
     private String priority;
+    private String status;
     private LocalDateTime creationTime;
     private LocalDateTime resolutionTime;
 
@@ -42,6 +43,14 @@ public class Incident {
         this.priority = priority;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public LocalDateTime getCreationTime() {
         return creationTime;
     }
@@ -56,5 +65,9 @@ public class Incident {
 
     public void setResolutionTime(LocalDateTime resolutionTime) {
         this.resolutionTime = resolutionTime;
+    }
+
+    public String toString() {
+        return "ID: " + this.getId() + ", Description: " + this.getDescription();
     }
 }
