@@ -1,0 +1,15 @@
+Apache Camel
+	- What is Camel
+	- Camel Architecture
+		- Components / Endpoints
+		- Integration Engine
+		- Processor	-> Router, Filter, Translator, etc..
+	- Component URIs / Endpoint URIs => URI, URL, URN
+	- CamelContext
+	- Steps to create Camel Route
+		Step 1: Create CamelContext
+		Step 2: Registering Component
+		Step 3: Create RouterBuilder	=> DSL
+		Step 4: Add RouteBuilder to CamelContext
+		Step 5: Start CamelContext
+		Step 6: Stop CamelContext

@@ -1,0 +1,14 @@
+#Producing SOAP Service
+
+STEP 1: Create Spring Boot project with Spring Web and Spring Web Services dependencies
+STEP 2: Extract the project and open in IDE
+STEP 3: Add WSDL4J, JAXB dependencies
+STEP 4: Create message schema
+STEP 5: Generate Domain Classes Based on an XML Schema
+STEP 6: Add Generated class directory into classpath
+STEP 7: Create Repository class
+STEP 8: Create Endpoint class
+STEP 9: Create WebServiceConfig class
+STEP 10: Build and Run
+
+#Consuming SOAP Service
