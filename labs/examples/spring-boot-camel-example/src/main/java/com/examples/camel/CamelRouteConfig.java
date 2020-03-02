@@ -215,10 +215,10 @@ public class CamelRouteConfig {
                         .log("SENT - ${body}")
                         // specify routingKey to route the message as per DIRECT exchange binding
                         .setHeader("rabbitmq.ROUTING_KEY", simple("test"))
-                        // .to("rabbitmq://localhost:5672/rabbitmq.xchange.direct?autoDelete=false");
-                        .to("rabbitmq:rabbitmq.xchange.direct?autoDelete=false");
+//                         .to("rabbitmq://localhost:5672/rabbitmq.xchange.direct?queue=test-queue&routingKey=test&autoDelete=false");
+                        .to("rabbitmq:rabbitmq.xchange.direct?queue=test-queue&routingKey=test&autoDelete=false");
 
-                from("rabbitmq:rabbitmq.xchange.direct?queue=test-queue&autoDelete=false")
+                from("rabbitmq://localhost:5672/rabbitmq.xchange.direct?queue=test-queue&routingKey=test&autoDelete=false")
                         .log("RECEIVED - ${headers}")
                         .log("RECEIVED - ${body}")
                         .to("file://output");
@@ -285,7 +285,7 @@ public class CamelRouteConfig {
 //    }
 
     // Exception Handling
-    @Bean
+//    @Bean
     public RouteBuilder defaultExceptionHandler() {
         return new RouteBuilder() {
             @Override
