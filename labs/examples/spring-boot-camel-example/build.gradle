@@ -16,6 +16,8 @@ dependencies {
 	implementation 'org.apache.camel.springboot:camel-spring-boot-starter:3.0.1'
 	implementation 'org.apache.camel:camel-rabbitmq:3.0.1'
 	implementation 'com.rabbitmq:amqp-client'
+	implementation 'org.apache.camel:camel-http:3.0.1'
+	implementation 'org.apache.camel:camel-jackson:3.0.1'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.2.4.RELEASE'
 

@@ -6,6 +6,10 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.http.HttpMethods;
+import org.apache.camel.component.jackson.JacksonDataFormat;
+import org.apache.camel.model.dataformat.JsonDataFormat;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -272,17 +276,53 @@ public class CamelRouteConfig {
         };
     }
 
-//    @Bean
-//    public Processor  fileProcessor () {
-////        return () -> {
-////            throw new CamelException("Custom camel exception");
-////        };
-//
-//        new Processor() {
-//
-//        }
-//
-//    }
+    @Bean
+    public RouteBuilder consumeWebservices() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+
+//                String incidentJson =     " { \"submitter\": \"Sumith\",   \"description\": \"Outlook not working\",  \"priority\": \"HIGH\" }";
+
+                Incident incident = new Incident();
+                incident.setSubmitter("Anil");
+                incident.setDescription("Internet not working");
+                incident.setPriority("HIGH");
+
+//                JsonDataFormat incidentJsonDataFormatter =new JsonDataFormat();
+
+                JacksonDataFormat incidentJsonFormatter = new JacksonDataFormat(Incident.class);
+
+
+                from("timer:createIncident?repeatCount=1")
+                        .log("Create incident")
+                        .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.POST))
+                        .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+//                        .setBody(simple(incidentJson))
+                        .process(new Processor() {
+                            @Override
+                            public void process(Exchange exchange) throws Exception {
+                                exchange.getOut().setBody(incident);
+                            }
+                        })
+                        .marshal(incidentJsonFormatter)
+                        .log("REQUEST BODY - ${body}")
+                        .to("http://localhost:8080/incidents")
+                        .log("CREATE RESPONSE - ${headers}")
+                        .log("CREATE RESPONSE - ${body}");
+
+                from("timer:fetchIncidents?repeatCount=1")
+                .log("Invoking incidents service")
+
+                    //http:hostname[:port][/resourceUri][?options]
+                        .setHeader(Exchange.HTTP_METHOD, constant(HttpMethods.GET))
+                        .to("http://localhost:8080/incidents")
+                        .log("GET RESPONSE - ${headers}")
+                        .log("GET RESPONSE - ${body}");
+            }
+        };
+    }
+
 
     // Exception Handling
 //    @Bean
