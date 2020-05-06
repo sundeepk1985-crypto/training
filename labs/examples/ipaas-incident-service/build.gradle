@@ -14,9 +14,24 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-//    implementation 'org.postgresql:postgresql'
+
+    // Spring Boot JDBC Template
+//    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    // Spring Boot JPA
+//    implementation 'org.springframework:spring-orm'
+//    implementation 'org.hibernate:hibernate-core'
+
+    // Spring Boot Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Boot Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Database dependencies
+//  implementation 'org.postgresql:postgresql'
     implementation 'com.h2database:h2'
+
     implementation 'org.springframework.boot:spring-boot-devtools'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

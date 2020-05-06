@@ -1,10 +1,15 @@
 package com.examples.ipaas.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "INCIDENT")
 public class Incident {
+    @Id
+    @GeneratedValue
     private int id;
     @NotEmpty(message = "Submitter can't be empty")
     private String submitter;
@@ -12,7 +17,9 @@ public class Incident {
     private String description;
     private String priority;
     private String status;
+    @Column(name = "creation_time")
     private LocalDateTime creationTime;
+    @Column(name = "resolution_time")
     private LocalDateTime resolutionTime;
 
     public int getId() {
