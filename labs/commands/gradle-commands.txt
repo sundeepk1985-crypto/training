@@ -1,0 +1,5 @@
+gradle --version
+gradle projects
+gradle tasks
+gradle dependencies
+gradle properties
