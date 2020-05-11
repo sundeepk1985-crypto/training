@@ -24,9 +24,14 @@ ext {
 }
 
 dependencies {
+	// config server
 	implementation 'org.springframework.cloud:spring-cloud-config-server'
+	// monitoring the changes and publish the changes (events) to client
 	implementation 'org.springframework.cloud:spring-cloud-config-monitor'
+	// stream published events using RabbitMQ
 	implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+	// eureka client dep to register this service to eureka server
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
