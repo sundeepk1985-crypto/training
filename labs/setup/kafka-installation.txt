@@ -1,0 +1,26 @@
+#Installation
+STEP 1: Download Kafka from https://kafka.apache.org/downloads
+STEP 2: Extract Kafka to local director e.g: C:\Programs\Kafka\kafka-2.5.0
+STEP 3: Open %KAFKA_HOME%\config\zookeeper.properties and set dataDir=/Programs/Kafka/kafka-2.5.0/data/zookeeper
+STEP 4: Open %KAFKA_HOME%\config\server.properties and set log.dirs=/Programs/Kafka/kafka-2.5.0/data/kafka-logs
+STEP 5: Create %KAFKA_HOME%\data directory
+#Starting
+STEP 6: Open Command Prompt in Admin mode and Navigate to %KAFKA_HOME%
+STEP 7: Start Zookeeper> bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+STEP 8: Open another Command Prompt in Admin mode and Navigate to %KAFKA_HOME%
+STEP 8: Start Kafka> bin\windows\kafka-server-start.bat config\server.properties
+
+#Kafka commands
+kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
+kafka-topics.bat --list --bootstrap-server localhost:9092
+kafka-console-producer.bat --broker-list localhost:9092 --topic test
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test --from-beginning
+kafka-topics.bat --delete --bootstrap-server localhost:2181 --topic testcd
+
+#Kafka manager
+C:\kafka-manager\bin\kafka-manager.bat
+
+#Case Study
+kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic ORDER_CREATED
+kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic ORDER_APPROVED
+kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic ORDER_REJECTED
