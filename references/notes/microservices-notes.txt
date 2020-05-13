@@ -67,7 +67,9 @@ Microservices Design
 								- notification (generic)
 				- helps to figure out if any inefficiency in the existing process / org structure
 			
-		- Cross Cutting Concerns	-> Microservices Chasis -> Spring Boot and Cloud
+		- Cross Cutting Concerns
+			- Microservices Chasis -> Spring Boot and Cloud
+			
 		- Service Discovery
 			- Registry Server
 				- Eureka (Spring Cloud Netflix) => spring-cloud-starter-eureka-server
@@ -105,11 +107,34 @@ Microservices Design
 		- Security
 		- UI Patterns
 		- External API
-			- API Gateway
+			- API Gateway (Netflix Zuul)
+				- Authentication
+				- Routing
+				- Filtering
+				- Proxy
+				- etc.
 			- Backend for Frontend
+			
+			http://localhost:8111/ipaas/api/incidents (API Gateway) => 
+				- http://localhost:9092/incidents
+			
 		- Transactional Messaging
-		- Reliablity
+		
+		- Reliablity / Resiliency
+			- Circuit Breaker
+			- Netflix Hystrix
+			
+			
 		- Testing
+		
+		- Load Balancing
+			- Client Side Load Balancing
+			- Netflix Ribbon
+			
+		- REST Client
+			- with load balancing capability
+			- Feign Client
+			- OpenFeign
 		
 Microservices Development
 		- Microservices Chasis -> Spring Boot and Cloud

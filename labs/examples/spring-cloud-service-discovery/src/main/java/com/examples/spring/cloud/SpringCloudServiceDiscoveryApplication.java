@@ -33,13 +33,13 @@ public class SpringCloudServiceDiscoveryApplication implements CommandLineRunner
 
 		System.out.println(discoveryClient);
 
-		List<ServiceInstance> instances = discoveryClient.getInstances("product-service");
+		List<ServiceInstance> instances = discoveryClient.getInstances("incident-service");
 		System.out.println("No of instances: " + instances.size());
 		if (instances.size() > 0) {
-			// get base uri of product-service -> http://localhost:9091
+			// get base uri of product-service -> http://localhost:9092
 			URI baseUri = instances.get(0).getUri();
-			baseUri = new URI(baseUri +"/products");
-			// http://localhost:9091/products
+			baseUri = new URI(baseUri +"/incidents");
+			// http://localhost:9092/incidents
 			System.out.println(baseUri.toString());
 
 			RestTemplate client = new RestTemplate();

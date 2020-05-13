@@ -14,7 +14,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 @SpringBootApplication
-@EnableHystrix
+@EnableHystrix		// timeout, fallback
 @EnableCircuitBreaker
 @RestController
 public class SpringCloudHystrixApplication {
@@ -52,6 +52,7 @@ public class SpringCloudHystrixApplication {
 	}	
 	
 	private String fallbackIncidents() {
+		System.out.println("Fallback Response sent - " + new Date());
 		return "Server is busy. Please try after sometime.";
 	}	
 }
