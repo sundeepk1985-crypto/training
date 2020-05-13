@@ -199,7 +199,7 @@ public class CamelRouteConfig {
     }
 
     // Rabbit MQ Connection Factory bean
-    @Bean
+//    @Bean
     public ConnectionFactory rabbitConnectionFactory() {
         ConnectionFactory rabbitConnectionFactory = new ConnectionFactory();
         rabbitConnectionFactory.setHost("localhost");
@@ -276,7 +276,7 @@ public class CamelRouteConfig {
         };
     }
 
-    @Bean
+//    @Bean
     public RouteBuilder consumeWebservices() {
         return new RouteBuilder() {
             @Override
@@ -324,7 +324,7 @@ public class CamelRouteConfig {
     }
 
 
-    // Exception Handling
+    // Exception Handling (with default exeption handler)
 //    @Bean
     public RouteBuilder defaultExceptionHandler() {
         return new RouteBuilder() {
@@ -338,6 +338,73 @@ public class CamelRouteConfig {
                             @Override
                             public void process(Exchange exchange) throws Exception {
                                 throw new CamelException("Customer camel exception");
+                            }
+                        })
+                        .to("file:output");
+            }
+        };
+    }
+
+    // Exception Handling (with try...catch)
+//    @Bean
+    public RouteBuilder exceptionHandlingWithTryCatch() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                // File
+                from("file:input")
+//                        .log("${headers}")
+                        .log("${body}")
+                        .doTry()
+                        .process(new Processor() {
+                            @Override
+                            public void process(Exchange exchange) throws Exception {
+                                throw new CamelException("Custom camel exception");
+                            }
+                        })
+                        .to("file:output")
+                        .doCatch(CamelException.class)
+                            // exception handling
+                            .process(new Processor() {
+                                            @Override
+                                            public void process(Exchange exchange) throws Exception {
+                                                Exception e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
+                                                System.out.println("Exception occured - " + e);
+                                            }
+                                        })
+                            .to("file:error")
+                        .endDoTry();
+
+            }
+        };
+    }
+
+    @Bean
+    public RouteBuilder onExceptionHandler() {
+        return new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+
+                onException(CamelException.class)
+                        // exception handling
+                        .process(new Processor() {
+                            @Override
+                            public void process(Exchange exchange) throws Exception {
+                                Exception e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
+                                System.out.println("Exception occured - " + e);
+                            }
+                        })
+//                        .handled(true)
+                        .log("Exception Handled");
+
+                // File
+                from("file:input")
+                        .log("${headers}")
+                        .log("${body}")
+                        .process(new Processor() {
+                            @Override
+                            public void process(Exchange exchange) throws Exception {
+                                throw new CamelException("Custom camel exception");
                             }
                         })
                         .to("file:output");
