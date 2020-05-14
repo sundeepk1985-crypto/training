@@ -15,7 +15,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 @SpringBootApplication
 @EnableHystrix		// timeout, fallback
-@EnableCircuitBreaker
+@EnableCircuitBreaker	// for circuit breaker to function
 @RestController
 public class SpringCloudHystrixApplication {
 

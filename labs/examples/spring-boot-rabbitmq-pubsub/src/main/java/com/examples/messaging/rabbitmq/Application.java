@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Application {
 
-    static final String topicExchangeName = "spring-boot-exchange";
+    static final String topicExchangeName = "ipaas-exchange";
 
-    static final String queueName = "spring-boot";
+    static final String queueName = "incident_create";
 
     @Bean
     Queue queue() {
@@ -30,7 +30,7 @@ public class Application {
 
     @Bean
     Binding binding(Queue queue, TopicExchange exchange) {
-    	return BindingBuilder.bind(queue).to(exchange).with("rabbit.demo.#");       
+    	return BindingBuilder.bind(queue).to(exchange).with("ipaas.incident.#");
     }
     
     @Bean

@@ -3,7 +3,7 @@ package com.examples.messaging.rabbitmq;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 
-@RabbitListener(queues="spring-boot")
+@RabbitListener(queues="incident_create")
 public class Receiver {
 
 	@RabbitHandler

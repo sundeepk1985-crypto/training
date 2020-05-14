@@ -17,7 +17,7 @@ public class Sender implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Sending message...");
     	// Step 1: Send Message
-        rabbitTemplate.convertAndSend(Application.topicExchangeName, "rabbit.demo.topic", "Hello from RabbitMQ!");
+        rabbitTemplate.convertAndSend(Application.topicExchangeName, "ipaas.incident.create", "Hello from RabbitMQ!");
     }
 
 }

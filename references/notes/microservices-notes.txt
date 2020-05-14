@@ -121,9 +121,30 @@ Microservices Design
 		- Transactional Messaging
 		
 		- Reliablity / Resiliency
-			- Circuit Breaker
+			- Circuit Breaker - ensures service failure is not cascading to other services
 			- Netflix Hystrix
-			
+				- fallback response upon timeout or failure
+				
+				- initially circuit is in closed state
+				- set threshold for failure (circuit breaker properties)
+					- circuitBreaker.requestVolumeThreshold -> 3
+					- circuitBreaker.errorThresholdPercentage -> 50% => (timeout req + failed req + short circuit req) / total request
+					- metrics.rollingStats.timeInMilliseconds -> 10secs
+					- circuitBreaker.sleepWindowInMilliseconds -> 10secs				
+				- once threshold reached circuit will open
+				
+				- short circuit response will be sent back till circuit closed
+				
+				- random probes/requests to target service
+				- if the request passes then circuit will closed
+
+			- @HystrixCommand => creates circuit breaker instance
+			- Typically have circuit break configured in all potential failure points
+				- invoking internal/external service
+				- integration with database
+				- integration with messaging system
+				
+			- Hystrix Dashboard
 			
 		- Testing
 		
@@ -131,10 +152,21 @@ Microservices Design
 			- Client Side Load Balancing
 			- Netflix Ribbon
 			
+			- Create RestTemplate applying @LoadBalanced
+			- Invoke services using this RestTemplate instance
+			- http://<<service-id>>/incidents
+			- http://incident-service/incidents
+			
 		- REST Client
 			- with load balancing capability
 			- Feign Client
 			- OpenFeign
+			
+			- Create Interface for the service which we are going to invoke
+			- IncidentClient interface applying @FeignClient and providing endpoint urls
+			- Autowire IncidentClient and call relevant methods
+			- @FeignClients apply on app main
+			
 		
 Microservices Development
 		- Microservices Chasis -> Spring Boot and Cloud

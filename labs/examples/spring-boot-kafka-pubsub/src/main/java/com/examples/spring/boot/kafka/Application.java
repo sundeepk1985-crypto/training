@@ -32,6 +32,7 @@ public class Application implements CommandLineRunner {
         this.template.send("myTopic", "Test Message1");
         this.template.send("myTopic", "Test Message2");
         this.template.send("myTopic", "Test Message3");
+        logger.info("Messages sent");
         latch.await(60, TimeUnit.SECONDS);
         logger.info("All received");
     }
