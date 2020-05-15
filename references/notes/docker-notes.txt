@@ -1,0 +1,87 @@
+Docker
+	- Introduction
+	- Virtual Machine vs Container
+	- What is Docker
+	- Docker Architecture
+	- Docker Engine
+	- Docker Components
+		- Image
+		- Container
+		- Registry (Local [/var/lib/docker] | Public | Private => Nexus | Artifactory)
+		- Docker Server (Daemon)
+		- Docker Client	
+			- CLI
+			- REST API
+			- SDK
+			- Plugins/Extentions
+		- Docker Compose => enables to run multiple docker containers in single unit
+		- Docker Swarm | Kubernetes	 => container management platform / orchestration platform
+		  
+	- Docker Installation and Setup
+		- Docker Desktop for Windows (10 Prof)
+		- Docker for Windows 7 => Docker Toolbox
+		- Docker for Linux
+		- Docker for Mac
+		- Docker Community Edition vs Docker Enterprise Edition		
+	- Docker CLI
+	
+	- Dockerfile
+		step 1: install base os
+		step 2: install nodejs / java
+		step 3: copy application build code
+		step 4: npm start | java -jar app.jar
+		step 5: expose ports - 3000
+		
+		
+	- Build Docker Image
+	- Launch Docker Container
+	- Working with Public Registry
+		- Create Account in https://hub.docker.com
+		- Docker Login
+		- Tag Image and Push Image
+		- Docker Logout
+	- Connect to Running Docker Container
+	- Make changes in Container and Commit
+		
+	- Eclipse Docker Tooling plugin
+	
+	- Dockerizing microservices
+	
+	- Docker Compose	
+	- Docker Swarm
+	
+	- Docker Storage Drivers
+		- 
+	- Docker Volumes
+		
+		
+	- Docker Networking
+	
+	- Docker Linking
+		
+	- Storage Drivers
+		
+	AUFS
+		This is a stable driver; can be used for production-ready applications.
+		It has good memory usage and is good for ensuring a smooth Docker experience for containers.
+		There is a high-write activity associated with this driver which should be considered.
+		It’s good for systems which are of Platform as a service type work.
+
+	Overlay2
+		This is a stable driver and it is in line with the main Linux kernel functionality.
+		It has a good memory usage.
+		This driver is good for testing applications in the lab. Also in production.
+		
+	Devicemapper
+		This is a stable driver; ensures a smooth Docker experience.
+		This driver is good for testing applications in the lab.
+		This driver is in line with the main Linux kernel functionality.
+
+	Btrfs
+		This driver is in line with the main Linux kernel functionality.
+		There is a high-write activity associated with this driver which should be considered.
+		This driver is good for instances where you maintain multiple build pools.
+
+	ZFS
+		This is a stable driver and it is good for testing applications in the lab.
+		It’s good for systems which are of Platform-as-a-Service type work.	

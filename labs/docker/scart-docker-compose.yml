@@ -1,0 +1,96 @@
+version: '2.2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+    networks:
+      - docker  
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper:zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 10.137.143.4
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "ORDER_CREATED:1:1, ORDER_APPROVED:1:1, ORDER_REJECTED:1:1"
+    networks:
+      - docker  
+  
+  shoping-cart-registry:
+      image: shoping-cart-registry:vi
+      container_name: shoping-cart-registry
+      restart: always 
+      ports:
+        - 8761:8761
+      networks:
+      - docker  
+  
+  shoping-cart-gateway:
+      image: shoping-cart-gateway:vi
+      container_name: shoping-cart-gateway
+      restart: always 
+      ports:
+        - 8111:8111 
+      depends_on:
+      - shoping-cart-registry
+      networks:
+      - docker
+      environment:
+        EUREKA: shoping-cart-registry
+        KAFKA:  kafka
+  
+  shoping-cart-customer-service:
+      image: shoping-cart-customer-service:vi
+      container_name: shoping-cart-customer-service
+      restart: always 
+      ports:
+        - 8092:8092 
+      depends_on:
+      - shoping-cart-gateway
+      networks:
+      - docker  
+      environment:
+        EUREKA: shoping-cart-registry
+        KAFKA:  kafka    
+  
+  shoping-cart-order-service:
+      image: shoping-cart-order-service:vi
+      container_name: shoping-cart-order-service
+      restart: always 
+      ports:
+        - 8093:8093  
+      depends_on:
+      - shoping-cart-gateway
+      networks:
+      - docker  
+      environment:
+        EUREKA: shoping-cart-registry
+        KAFKA:  kafka  
+
+  shoping-cart-product-service:
+      image: shoping-cart-product-service:vi
+      container_name: shoping-cart-product-service
+      restart: always 
+      ports:
+        - 8091:8091 
+      depends_on:
+      - shoping-cart-gateway
+      networks:
+      - docker  
+      environment:
+        EUREKA: shoping-cart-registry
+        KAFKA:  kafka         
+       
+networks:
+  docker:
