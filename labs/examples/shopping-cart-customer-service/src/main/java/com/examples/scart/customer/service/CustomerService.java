@@ -70,7 +70,9 @@ public class CustomerService {
         if(availableCreditLimit >= dPrice) {
         	customer.setCreditLimit(availableCreditLimit - dPrice);
         	System.out.println("ORDER APPROVED :: " + orderId);
+        	//STEP 1: Save updated customer details to db
         	customerRepo.save(customer);
+			//STEP 1: Publish order id to ORDER_APPROVED topic
         	kafkaTemplate.send("ORDER_APPROVED", orderId);
         }
         else {

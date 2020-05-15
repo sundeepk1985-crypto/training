@@ -22,11 +22,12 @@ public class OrderService {
 	KafkaTemplate<String, String> kafkaTemplate;
 	
 	public Integer create(Order order) {
+		//STEP 1: Save order details in db with 'PENDING' status
 		order.setStatus("PEDNING");
 		orderRepo.save(order);
 		
 		String msg = order.getId() + "," + order.getCustomerId() + "," + String.valueOf(order.getPrice());
-		
+		//STEP 2: Publish Order details to ORDER_CREATED topic
 		kafkaTemplate.send("ORDER_CREATED", msg);
 		
 		return order.getId();

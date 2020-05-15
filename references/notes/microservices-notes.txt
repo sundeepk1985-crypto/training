@@ -104,6 +104,13 @@ Microservices Design
 		- Service Deployment
 		- Observability
 		- Communication Styles
+			- Synchronous Communication
+				- RPI (Remote Procedure Invocation)
+				- REST/SOAP Webservices
+			- Asynchronous Communication
+				- Messaging
+				- RabbitMQ
+				- Kafka
 		- Security
 		- UI Patterns
 		- External API
