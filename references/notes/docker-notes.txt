@@ -1,12 +1,15 @@
 Docker
 	- Introduction
+		- Docker Inc
+		- ~2013
 	- Virtual Machine vs Container
 	- What is Docker
+		- build, ship and run apps / services anywhere
 	- Docker Architecture
 	- Docker Engine
 	- Docker Components
-		- Image
-		- Container
+		- Image		=> Read only template to create containers. Build and Ship.
+		- Container => Running instance of image. Can run one or more containers from an image.
 		- Registry (Local [/var/lib/docker] | Public | Private => Nexus | Artifactory)
 		- Docker Server (Daemon)
 		- Docker Client	
@@ -19,11 +22,13 @@ Docker
 		  
 	- Docker Installation and Setup
 		- Docker Desktop for Windows (10 Prof)
-		- Docker for Windows 7 => Docker Toolbox
+		- Docker for Windows 7 => Docker Toolbox (VirtualBox)
 		- Docker for Linux
 		- Docker for Mac
 		- Docker Community Edition vs Docker Enterprise Edition		
 	- Docker CLI
+		- image
+		- container
 	
 	- Dockerfile
 		step 1: install base os

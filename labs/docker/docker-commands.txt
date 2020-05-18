@@ -59,7 +59,6 @@ docker export -o myContainner1.tar container1
 #Import Container from Disk
 docker import -i myContainer1
 
-
 #Delete image
 docker image rm <imageid>
 docker image rm <imageid>
