@@ -7,7 +7,7 @@ services:
     ports:
       - 2181:2181
     networks:
-      - docker  
+      - scart  
 
   kafka:
     image: wurstmeister/kafka
@@ -25,7 +25,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "ORDER_CREATED:1:1, ORDER_APPROVED:1:1, ORDER_REJECTED:1:1"
     networks:
-      - docker  
+      - scart  
   
   registry-service:
       image: scart/registry-service
@@ -34,7 +34,7 @@ services:
       ports:
         - 8761:8761
       networks:
-      - docker  
+      - scart  
   
   gateway-service:
       image: scart/gateway-service
@@ -45,10 +45,9 @@ services:
       depends_on:
       - registry-service
       networks:
-      - docker
+      - scart
       environment:
         REGISTRY_SERVER_HOST: registry-service
-        KAFKA_BOOTSTRAP_SERVERS:  kafka
   
   customer-service:
       image: scart/customer-service
@@ -59,10 +58,10 @@ services:
       depends_on:
       - gateway-service
       networks:
-      - docker  
+      - scart  
       environment:
         REGISTRY_SERVER_HOST: registry-service
-        KAFKA_BOOTSTRAP_SERVERS:  kafka    
+        KAFKA_BOOTSTRAP_SERVERS:  kafka:9092    
   
   order-service:
       image: scart/order-service
@@ -73,10 +72,10 @@ services:
       depends_on:
       - gateway-service
       networks:
-      - docker  
+      - scart  
       environment:
         REGISTRY_SERVER_HOST: registry-service
-        KAFKA_BOOTSTRAP_SERVERS:  kafka  
+        KAFKA_BOOTSTRAP_SERVERS:  kafka:9092  
 
   product-service:
       image: scart/product-service
@@ -87,10 +86,9 @@ services:
       depends_on:
       - gateway-service
       networks:
-      - docker  
+      - scart  
       environment:
-        REGISTRY_SERVER_HOST: registry-service
-        KAFKA_BOOTSTRAP_SERVERS:  kafka         
+        REGISTRY_SERVER_HOST: registry-service        
        
 networks:
-  docker:
+  scart:
