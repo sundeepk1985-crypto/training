@@ -13,9 +13,6 @@ docker info												(=> Docker details)
 docker image ls											(=> Lists images)
 docker ps												(=> Lists active containers)
 docker ps -as											(=> Lists all containers)
-docker build <dockerfilepath> <target image path>		(=> Build image from Dockerfile)
-docker build --build-arg JAR_FILE=a_value .				(=> Build image with command line args)
-docker build -t sboot-docker --build-arg JAR_FILE=./target/*.jar .		(=> Build image with command line args)
 docker run <image path> <optional args>					(=> Starts container)
 docker run -e "env_var_name=another_value" <image id>	(=> Start container with environmental variables)
 docker stop <container id/name>							(=> Stop container)
@@ -23,20 +20,23 @@ docker rm <container id/name>							(=> Remove container)
 docker image rm <image id/name>							(=> Remove image)
 docker pull <image id/name>								(=> Pull image from Hub)
 docker inspect <containerid>							(=> List docker container detail)
+docker build <dockerfilepath> <target image path>		(=> Build image from Dockerfile)
+docker build --build-arg JAR_FILE=a_value .				(=> Build image with command line args)
+docker build -t sboot-docker --build-arg JAR_FILE=./target/*.jar .		(=> Build image with command line args)
 docker-machine ip										(=> Show docker machine ip)
 docker exec -it <container name> /bin/bash				(=> Connect to running container in bash mode)
 docker exec -it <container name> /bin/sh				(=> Connect to running container in sh mode)
+docker commit <container name> <imagename>				(=> Commits container changes into an image)
 
-#Spring Boot Docker Example
-docker build -t sboot/sboot-docker:latest --build-arg JAR_FILE=./target/*.jar .
-docker run -p 8081:8080 sboot/sboot-docker
-docker run -p 8081:8080 -env="SERVER_PORT=9091" sboot/sboot-docker
+#Hello World Docker Example
+docker build -t hello-world-docker:latest .
+docker run -p 8080:8080 --name="hello-docker" hello-world-docker
 
-docker build -t empservice-docker:latest --build-arg JAR_FILE=./target/*.jar .
-docker run -p 8080:8080 empservice-docker
+#Hello World Docker Example with build argument
+docker build -t hello-world-docker:latest --build-arg JAR_FILE=./target/*.jar .
 
-docker build -t java-docker-demo:latest .
-docker run -p 8080:8080 java-docker-demo
+#Hello World Docker Example with environmental variable
+docker run -p 8090:9090 -e "SERVER_PORT=9090" hello-world-docker
 
 #Jenkins Docker image setup Example
 docker pull jenkins
@@ -45,7 +45,7 @@ docker run -p 8080:8080 -p 50000:50000 jenkins
 
 #Ngnix
 docker run --detach --publish=80:80 --name=webserver nginx
-docker run -d -p 80:80 --name=phonebook phonebook-ng8-docker
+docker run -d -p 80:80 --name=webserver nginx
 
 #Save Image to Disk
 docker save -o images.tar image1 [image2 ..]
@@ -57,7 +57,8 @@ docker load -i images.tar
 docker export -o myContainner1.tar container1
 
 #Import Container from Disk
-docker import -i myContainer1
+docker import myContainer1
+
 
 #Delete image
 docker image rm <imageid>
@@ -70,20 +71,15 @@ docker login
 #Tag image
 docker tag <sourceimage:tag> <targetimage:tag>
 
-docker tag sboot-hello-world:v1 dockertraining/sboot-hello-world:v1
-
-docker tag sboot/sboot-docker dockertraining/dockerrepo:sbootv1
-docker tag empservice-docker dockertraining/empservice:v1
+docker tag hello-world-docker dockrtraining/hello-world-docker
 
 #Push image to DockerHub Registry
 docker push username/repository:tag
 
-docker push dockertraining/sboot-hello-world:v1
-docker push dockertraining/dockerrepo:sbootv1
-docker push dockertraining/empservice:v1
+docker push dockrtraining/hello-world-docker
 
 #Pull image from DockerHub Registry
-docker pull dockertraining/dockerrepo:sbootv1
+docker pull dockrtraining/hello-world-docker
 
 #List Docker Images
 docker image ls
@@ -91,7 +87,48 @@ docker image ls
 #Run Docker image
 docker run -p 8080:8080 username/repository:tag
 
-docker run -p 8080:8080 dockertrainingltts/dockerrepo:sbootv1
+docker run -p 8080:8080 dockrtraining/hello-world-docker
 
 #Logout from DockerHub
 docker logout
+
+##Storage
+##bind mount
+#bind mount (with --mount option)
+docker run -d --name bindtest --mount type=bind,source="/home/docker,target=/app nginx:latest
+
+#bind mount (with -v option)
+docker run -d --name bindtest -v /home/docker:/app nginx:latest
+
+#verify that mount is a bind mount
+docker container inspect bindtest			(=> check Mounts section)
+docker exec -it bindtest bash				(=> check dir /app, write some data and stop/start container n verify)
+
+##volumes
+#volume mount (with --mount option)
+docker run -d --name voltest --mount source=testvol,target=/app nginx:latest
+
+#volume mount (with -v option)
+docker run -d --name voltest -v testvol:/app nginx:latest
+
+#verify that mount is a volume
+docker container inspect voltest			(=> check Mounts section)
+docker exec -it voltest bash				(=> check dir /app, write some data and stop/start container n verify)
+
+##tmpfs
+#temp mount with --mount option
+docker run -d --name tmptest --mount type=tmpfs,destination=/app nginx:latest
+
+#temp mount with --tmpfs option
+docker run -d --name tmptest --tmpfs /app nginx:latest
+
+#temp mount with volume option
+docker volume create --driver local --opt type=tmpfs --opt device=tmpfs temp
+docker run -d --name tmptest1 -v temp:/app nginx:latest
+
+#verify that mount is a tmpfs mount
+docker container inspect tmptest			(=> check Mounts section)
+docker exec -it temptest bash				(=> check dir /app, write some data and stop/start container n verify)
+
+
+

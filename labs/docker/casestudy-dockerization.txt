@@ -5,22 +5,22 @@ docker build -t scart/registry-service:latest .
 
 #Dockerize Product Service
 ${PROJECT_HOME}/labs/examples/shopping-cart-product-service
-mvnw clean install -DskipTests
+gradlew bootJar
 docker build -t scart/product-service:latest .
 
 #Dockerize Customer Service
 ${PROJECT_HOME}/labs/examples/shopping-cart-customer-service
-mvnw clean install -DskipTests
+gradlew bootJar
 docker build -t scart/customer-service:latest .
 
 #Dockerize Order Service
 ${PROJECT_HOME}/labs/examples/shopping-cart-order-service
-mvnw clean install -DskipTests
+gradlew bootJar
 docker build -t scart/order-service:latest .
 
 #Dockerize Gateway Service
 ${PROJECT_HOME}/labs/examples/shopping-cart-gateway
-mvnw clean install -DskipTests
+gradlew bootJar
 docker build -t scart/gateway-service:latest .
 
 #Run docker containers

@@ -9,8 +9,12 @@ services:
     - MYSQL_USER=user
     - MYSQL_PASSWORD=password
     - MYSQL_DATABASE=demodb
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+    - "8080:8080"
   web:
     image: nginx
     ports:
-    - "80:80"     
-    
+    - "80:80"    

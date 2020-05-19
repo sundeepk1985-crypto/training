@@ -1,0 +1,14 @@
+docker build -t scart/product-service:latest .
+docker build -t scart/order-service:latest .
+docker build -t scart/customer-service:latest .
+docker build -t scart/registry-service:latest .
+docker build -t scart/gateway-service:latest .
+
+docker run --name=registry-service -p 8761:8761 scart/registry-service
+docker run --name=product-service -p 8091:8091 scart/product-service
+docker run --name=customer-service -p 8092:8092 -e "KAFKA_BOOTSTRAP_SERVERS=192.168.99.100:9092" scart/customer-service
+docker run --name=order-service -p 8093:8093 -e "KAFKA_BOOTSTRAP_SERVERS=192.168.99.100:9092" scart/order-service
+docker run --name=gateway-service -p 8111:8111 -e "REGISTRY_SERVER_HOST=192.168.99.100" scart/gateway-service
+
+kubectl run product-service --image=scart/product-service --port=8080
+kubectl expose deployment product-service --type=NodePort

@@ -1,0 +1,43 @@
+Kubernetes
+- Introduction
+- What is Kubernetes	=> container management/orchestration platform
+- Docker Swarm vs Kubernetes
+- Kubernetes Architecture
+- Kubernetes Components
+	- Master Components
+		- Kube API Server	=> all external/internal communcation will be routed thru API server
+		- etcd				=> key/value based datastore
+		- Kube Scheduler	=> schedules the requests based on resource availability
+		- Kube Controller Manager	=> collects stats from all nodes and monitor continously to take appropriate action
+		- Cloud Controller Manager	=> integration with cloud providers
+			
+	- Node Components
+		- Kubelet			=> manages worker node
+		- Container Runtime	=> can run the containers complies to CRI (Container Runtime Interface) spec
+		- Kube Proxy		=> 
+		
+	- Kubectl
+	
+- Kubernetes Concepts (Resources)
+	- Namespace
+	- Pod
+	- Service
+	- Deployment
+	
+	- Job
+	- CroJob
+		
+	- Label
+	- Annotation
+	- Selector
+		
+	- Replication Controller	
+	- ReplicaSet
+	- StatefulSet
+	- DaemonSet
+	
+	- ConfigMap
+	- Secret
+	
+- Networking
+- Volumes

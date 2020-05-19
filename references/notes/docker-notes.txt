@@ -1,17 +1,14 @@
 Docker
 	- Introduction
-		- Docker Inc
-		- ~2013
 	- Virtual Machine vs Container
 	- What is Docker
-		- build, ship and run apps / services anywhere
 	- Docker Architecture
 	- Docker Engine
 	- Docker Components
-		- Image		=> Read only template to create containers. Build and Ship.
-		- Container => Running instance of image. Can run one or more containers from an image.
-		- Registry (Local [/var/lib/docker] | Public | Private => Nexus | Artifactory)
-		- Docker Server (Daemon)
+		- Image		=> read only template to create containers. Build and Ship. ~JAR
+		- Container => running instance of image. Can run one or more containers from an image. Run JAR -> JVM -> mem /resources
+		- Registry (Local [/var/lib/docker] | Public (Docker Hub) | Private => Nexus | Artifactory)
+		- Docker Server (Daemon) (dockerd)
 		- Docker Client	
 			- CLI
 			- REST API
@@ -21,15 +18,17 @@ Docker
 		- Docker Swarm | Kubernetes	 => container management platform / orchestration platform
 		  
 	- Docker Installation and Setup
-		- Docker Desktop for Windows (10 Prof)
-		- Docker for Windows 7 => Docker Toolbox (VirtualBox)
+		- Docker Desktop for Windows (10 Prof/Entp)
+		- Docker for Windows 7 => Docker Toolbox
 		- Docker for Linux
 		- Docker for Mac
-		- Docker Community Edition vs Docker Enterprise Edition		
+		- Docker Community Edition vs Docker Enterprise Edition
+		- Docker Enterprise sold to Mirandis (2019)
 	- Docker CLI
-		- image
-		- container
-	
+		- docker basic commands
+		- docker image
+		- docker container
+			
 	- Dockerfile
 		step 1: install base os
 		step 2: install nodejs / java
@@ -40,29 +39,42 @@ Docker
 		
 	- Build Docker Image
 	- Launch Docker Container
+	
+	- Export/Import Docker Image locally
+	- Export/Load Docker Container locally
+	
 	- Working with Public Registry
 		- Create Account in https://hub.docker.com
 		- Docker Login
 		- Tag Image and Push Image
 		- Docker Logout
+		
 	- Connect to Running Docker Container
 	- Make changes in Container and Commit
 		
 	- Eclipse Docker Tooling plugin
 	
-	- Dockerizing microservices
+	- Docker Compose
 	
-	- Docker Compose	
-	- Docker Swarm
+	- Dockerizing microservices (ShoppingCart)
 	
 	- Docker Storage Drivers
-		- 
+		 
 	- Docker Volumes
-		
+		- bind mount	=> persist the data into host file system. source directory should be created and available.
+		- volumes		=> persist the data into docker storage area within host machine. managed by docker.
+		- tmpfs mount	=> temporarily persist data into host memory. tmpfs mount removed once container stops.
 		
 	- Docker Networking
+		- bridge	=> best when you need multiple containers to communicate on the same Docker host
+		- host		=> best when the network stack should not be isolated from the Docker host, but you want other aspects of the container to be isolated
+		- overlay	=> best when you need containers running on different Docker hosts to communicate using Swarm services
+		- macvlan	=> best when you are migrating from a VM setup or need your containers to look like physical hosts on your network, each with a unique MAC address
+		- none		=> no networking
 	
 	- Docker Linking
+	
+	- Docker Swarm
 		
 	- Storage Drivers
 		
