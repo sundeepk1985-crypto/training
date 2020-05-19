@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  hello-world:
+    image: hello-world-docker
+    container_name: hello-world
+    ports:
+      - 9090:8080
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+  
