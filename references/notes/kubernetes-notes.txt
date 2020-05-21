@@ -1,7 +1,32 @@
-Kubernetes
+Kubernetes (K8s)
 - Introduction
+	- developed in-house in Google
+	- later open sourced for public
 - What is Kubernetes	=> container management/orchestration platform
 - Docker Swarm vs Kubernetes
+	K8s
+	===
+	Pros
+	- K8s is feature rich
+	- K8s Dashboard to monitor the cluster
+	- Suitable for medium to highly complex usecases
+	- More stable and widely in production deployments
+	
+	Cons
+	- Complex to setup
+	- Requires more resources to run
+	
+	Docker Swarm
+	====
+	Pros
+	- Suitable for simple to medium complex usecases
+	- Easy to setup
+	- Self healing is faster
+	
+	Cons
+	- Lack of advanced features
+	- Docker Swarm monitoring / mgmt features are available only in Docker Enterprise
+	
 - Kubernetes Architecture
 - Kubernetes Components
 	- Master Components
@@ -16,7 +41,8 @@ Kubernetes
 		- Container Runtime	=> can run the containers complies to CRI (Container Runtime Interface) spec
 		- Kube Proxy		=> 
 		
-	- Kubectl
+	- Client Components
+		- Kubectl
 	
 - Kubernetes Concepts (Resources)
 	- Namespace
