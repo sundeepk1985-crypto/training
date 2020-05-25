@@ -1,12 +1,7 @@
-package com.examples.scart.product.model;
+package com.examples.scart.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class Product {
-	@Id
-	private String id;	
+	private String id;
 	private String name;
 	private String category;
 	private String manufacturer;

@@ -1,13 +1,13 @@
-package com.examples.scart.product.service;
+package com.examples.scart.service;
 
-import com.examples.scart.product.model.Product;
-import org.assertj.core.api.Assertions;
+import com.examples.scart.model.Product;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ProduceServiceTest {
+import static org.junit.Assert.*;
 
+public class ProductServiceTest {
     ProductService productService = new ProductService();
 
     @Before
@@ -40,9 +40,8 @@ public class ProduceServiceTest {
         product.setName("Laptop");
         productService.createProduct(product);
 
-        Assertions.assertThat(productService.getProduct("3")).isNotNull();
-        Assertions.assertThat(productService.getProduct("3").getId()).isEqualTo("3");
-        Assertions.assertThat(productService.getProducts().size()).isEqualTo(3);
+        assertNotNull(productService.getProduct("3"));
+        assertEquals("3", productService.getProduct("3").getId());
     }
 
     @Test
@@ -52,22 +51,38 @@ public class ProduceServiceTest {
             productService.createProduct(product);
         }
         catch(Exception e) {
-            Assertions.assertThatExceptionOfType(RuntimeException.class);
-            Assertions.assertThat(e.getMessage()).isEqualTo("Product Id mandatory");
+            assertEquals("Product Id mandatory", e.getMessage());
         }
+    }
+
+    @Test
+    public void shouldUpdateProductForGivenProductId() {
+        Product laptop = new Product();
+        laptop.setName("Lenovo Thinkpad E490");
+        laptop.setCategory("Laptops");
+        laptop.setManufacturer("Lenovo");
+
+        productService.updateProduct("2", laptop);
+
+        assertNotNull(productService.getProduct("2"));
+        assertEquals("Lenovo",productService.getProduct("2").getManufacturer());
     }
 
     @Test
     public void shouldDeleteProductWhenPassingValidProductId() {
         productService.deleteProduct("2");
-        Assertions.assertThat(productService.getProduct("2")).isNull();
-        Assertions.assertThat(productService.getProducts().size()).isEqualTo(1);
+        assertNull(productService.getProduct("2"));
+        assertEquals(1, productService.getProducts().size());
+    }
+
+    @Test
+    public void shouldReturnProductForGivenProductId() {
+        assertNotNull(productService.getProduct("2"));
+        assertEquals("2",productService.getProduct("2").getId());
     }
 
     @Test
     public void shouldReturnAllProductsWhenDontSpecifyProductId() {
-        System.out.println("Product count: " + productService.getProducts().size());
-        Assertions.assertThat(productService.getProducts().size()).isEqualTo(2);
+          assertEquals(2, productService.getProducts().size());
     }
-
 }
