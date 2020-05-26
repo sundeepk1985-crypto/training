@@ -1,14 +1,24 @@
 package com.examples.scart.service;
 
 import com.examples.scart.model.Product;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 
 public class ProductServiceTest {
     ProductService productService = new ProductService();
+
+    @BeforeClass
+    public static void init() {
+        //Logic to initialize test data goes here
+        System.out.println("Test data initialization at class level..");
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        //Logic to clean up test data goes here
+        System.out.println("Test data clean up at class level..");
+    }
 
     @Before
     public void setup() {
@@ -33,54 +43,50 @@ public class ProductServiceTest {
         productService.clear();
     }
 
-    @Test
-    public void shouldCreateProductWhenPassingMandatoryDetails() {
-        Product product = new Product();
-        product.setId("3");
-        product.setName("Laptop");
-        productService.createProduct(product);
+//    @Test
+//    public void shouldCreateProductWhenPassingMandatoryDetails() {
+//        Product product = new Product();
+//        product.setId("3");
+//        product.setName("Laptop");
+//    }
 
-        assertNotNull(productService.getProduct("3"));
-        assertEquals("3", productService.getProduct("3").getId());
-    }
+//    @Test
+//    public void shouldShowErrorWhenNotPassingMandatoryDetails() {
+//        Product product = new Product();
+//        try {
+//            productService.createProduct(product);
+//        }
+//        catch(Exception e) {
+//            assertEquals("Product Id mandatory", e.getMessage());
+//        }
+//    }
 
-    @Test
-    public void shouldShowErrorWhenNotPassingMandatoryDetails() {
-        Product product = new Product();
-        try {
-            productService.createProduct(product);
-        }
-        catch(Exception e) {
-            assertEquals("Product Id mandatory", e.getMessage());
-        }
-    }
-
-    @Test
-    public void shouldUpdateProductForGivenProductId() {
-        Product laptop = new Product();
-        laptop.setName("Lenovo Thinkpad E490");
-        laptop.setCategory("Laptops");
-        laptop.setManufacturer("Lenovo");
-
-        productService.updateProduct("2", laptop);
-
-        assertNotNull(productService.getProduct("2"));
-        assertEquals("Lenovo",productService.getProduct("2").getManufacturer());
-    }
-
-    @Test
-    public void shouldDeleteProductWhenPassingValidProductId() {
-        productService.deleteProduct("2");
-        assertNull(productService.getProduct("2"));
-        assertEquals(1, productService.getProducts().size());
-    }
-
-    @Test
-    public void shouldReturnProductForGivenProductId() {
-        assertNotNull(productService.getProduct("2"));
-        assertEquals("2",productService.getProduct("2").getId());
-    }
-
+//    @Test
+//    public void shouldUpdateProductForGivenProductId() {
+//        Product laptop = new Product();
+//        laptop.setName("Lenovo Thinkpad E490");
+//        laptop.setCategory("Laptops");
+//        laptop.setManufacturer("Lenovo");
+//
+//        productService.updateProduct("2", laptop);
+//
+//        assertNotNull(productService.getProduct("2"));
+//        assertEquals("Lenovo",productService.getProduct("2").getManufacturer());
+//    }
+//
+//    @Test
+//    public void shouldDeleteProductWhenPassingValidProductId() {
+//        productService.deleteProduct("2");
+//        assertNull(productService.getProduct("2"));
+//        assertEquals(1, productService.getProducts().size());
+//    }
+//
+//    @Test
+//    public void shouldReturnProductForGivenProductId() {
+//        assertNotNull(productService.getProduct("2"));
+//        assertEquals("2",productService.getProduct("2").getId());
+//    }
+//
     @Test
     public void shouldReturnAllProductsWhenDontSpecifyProductId() {
           assertEquals(2, productService.getProducts().size());
