@@ -59,6 +59,8 @@ public class ProductServiceControllerTests {
 
 //        log.info("Response: {}", response);
 
+        System.out.println("Response: " + response);
+
         // Step 4: Validate the Response
         Assertions.assertThat(response).isNotNull();
     }
