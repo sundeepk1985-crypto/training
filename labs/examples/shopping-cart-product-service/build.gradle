@@ -31,7 +31,12 @@ dependencies {
 //  implementation 'org.postgresql:postgresql'
 	implementation 'com.h2database:h2'
 	// uncomment to act as eureka client to register or discover the services to/from eureka server
-//	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	// Spring Boot Security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//OAuth2 Security
+//	implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {

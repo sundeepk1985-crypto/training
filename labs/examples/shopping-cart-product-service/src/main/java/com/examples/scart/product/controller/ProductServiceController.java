@@ -58,8 +58,9 @@ public class ProductServiceController {
       productService.updateProduct(id, product);
       return new ResponseEntity<>("Product is updated successsfully", HttpStatus.OK);
    }
-   
-   @RequestMapping(value = "/products", method = RequestMethod.POST, produces = "text/plain")
+
+//   @RequestMapping(value = "/products", method = RequestMethod.POST, produces = "text/plain")
+   @RequestMapping(value = "/products", method = RequestMethod.POST)
    public ResponseEntity<Object> createProduct(@RequestBody Product product)  {
 	   log.info("Received request {}", product);
 //      productRepo.put(product.getId(), product);

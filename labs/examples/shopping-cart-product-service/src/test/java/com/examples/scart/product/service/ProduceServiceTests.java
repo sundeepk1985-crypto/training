@@ -51,7 +51,7 @@ public class ProduceServiceTests {
 
     @After
     public void cleanup() {
-        productService.clear();
+        products.clear();
     }
 
     @Test

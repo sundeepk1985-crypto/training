@@ -26,12 +26,14 @@ public class ProductService {
         return productRepo.findAll();
     }
 
-    public void createProduct(Product product) {
-        if(product.getId() == null || product.getId().isEmpty()) {
-            throw new RuntimeException("Product Id mandatory");
-        }
+    public String createProduct(Product product) {
+//        if(product.getId() == null || product.getId().isEmpty()) {
+//            throw new RuntimeException("Product Id mandatory");
+//        }
 //        productRepo.put(product.getId(), product);
         productRepo.save(product);
+
+        return "Product created";
     }
 
     public void updateProduct(String id, Product product) {
